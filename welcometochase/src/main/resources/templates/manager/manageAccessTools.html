@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <title>Welcome To Chase</title>
+    <link rel="stylesheet" th:href="@{/css/main.css}"/>
+    <link href="webjars/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="modal fade" id="newModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add a New Access Tool</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/manage-access-tools}" modelAttribute="accessTool" method="post">
+                    <div class="form-group">
+                        <label for="toolName">Tool Name</label>
+                        <input type="text" class="form-control" id="toolName" aria-describedby="emailHelp" placeholder="Enter the tool's name">
+                    </div>
+                    <div class="form-group">
+                        <label for="accessType">Access Type</label>
+                        <input type="text" class="form-control" id="accessType" placeholder="Enter the type of access">
+                    </div>
+                    <button id="submit-new" type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<nav class="navbar navbar-expand-sm navbar-light bg-light justify-content-between">
+    <a class="navbar-brand" href="/">
+        <img src="/images/chase-logo.png" width="100" height="75" class="d-inline-block" alt="">
+        <p class="navbar-text">Welcome to Chase</p>
+    </a>
+    <form class="form-inline" th:action="@{/logout}" method="post">
+        <a href="/logout"><button class="btn btn-primary my-2 my-sm-0" type="submit">Logout</button></a>
+    </form>
+</nav>
+<div class="container">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col=8">
+            <a href="/manager-home"><button id="back-button" class="btn btn-secondary float-left top-button">Back</button></a>
+            <button id="newAccessTool" class="btn btn-success float-right top-button" data-toggle="modal" data-target="#newModal">New Access Tool</button>
+            <table class="table table-hover">
+                <thead class="thead-light">
+                <tr>
+                    <th>Access Tool Name</th>
+                    <th>Access Type</th>
+                    <th>Status</th>
+                    <th>Manage</th>
+                </tr>
+                <tr th:each="tool : ${accessTools}">
+                    <td th:text="${tool.toolName}">Name</td>
+                    <td th:text="${tool.accessType}">Type</td>
+                    <td th:text="${tool.status}">Status</td>
+                    <td>
+                        <a href="#"><button type="submit" class="btn btn-secondary">Edit</button></a>
+                        <a href="#"><button type="submit" class="btn btn-danger">Delete</button></a>
+                    </td>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="/js/adminHandler.js"></script>
+</body>
+</html>
